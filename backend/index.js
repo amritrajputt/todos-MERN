@@ -39,7 +39,7 @@ app.post("/signup", async (req, res) => {
 
     })
 
-    const parsedDataWithSuccess =  requiredInput.safeParse(req.body)
+    const parsedDataWithSuccess = requiredInput.safeParse(req.body)
     if (!parsedDataWithSuccess.success) {
         res.json({
             message: "Incorrect format",
@@ -72,14 +72,62 @@ app.post("/signin", async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
+    const user = await userModel.findOne({
+        email: email
+    })
+    if (!user) {
+        res.status(403).json({
+            message: "User doesn't exist in our DB"
+        })
+        return
+    }
 
+    const isPasswordmatched = await bcrypt.compare(password, user.password)
 
-
+    if (isPasswordmatched) {
+        const token = jwt.sign({
+            id: user._id.toString()
+        }, JWT_SECRET)
+        res.json({
+            token
+        })
+        console.log(token);
+    } else {
+        res.json({
+            message: "Incorrect credential"
+        })
+    }
+    
+    
 })
 
+const auth = (req, res, next) => {
+  const authHeader = req.headers.token
+    try {
+        const decodedData = jwt.verify(token, JWT_SECRET);
+        req.userID = decodedData.id; 
+        next();
+    } catch (err) {
+        res.status(403).json({ message: "Invalid token" });
+    }
+}
 
-app.post("/addtodo", (req, res) => {
 
+app.post("/addtodo", auth, async (req, res) => {
+    const { title, status } = req.body
+    const userId = req.userID
+
+    if (!title || !status) {
+        return res.status(400).json({ message: "Missing fields" });
+    }
+
+    await todoModel.create({
+        title: title,
+        status: status,
+        user: userId
+    })
+
+    res.json({ message: "Todo added" });
 })
 
 
