@@ -13,7 +13,7 @@ const user = new Schema({
 
 const todos = new Schema({
     title: String,
-    status: String,
+    status: {type:String , default:"pending"},
     userId: ObjectId
 })
 
