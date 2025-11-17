@@ -101,16 +101,23 @@ app.post("/signin", async (req, res) => {
     
 })
 
+
 const auth = (req, res, next) => {
-  const authHeader = req.headers.token
+    const token = req.headers.token;
+
+    if (!token) {
+        return res.status(401).json({ message: "Token missing" });
+    }
+
     try {
-        const decodedData = jwt.verify(token, JWT_SECRET);
-        req.userID = decodedData.id; 
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.userID = decoded.id;
         next();
     } catch (err) {
-        res.status(403).json({ message: "Invalid token" });
+        return res.status(403).json({ message: "Invalid token" });
     }
-}
+};
+
 
 
 

@@ -13,7 +13,7 @@ const user = new Schema({
 
 const todos = new Schema({
     title: String,
-    status: Boolean,
+    status: String,
     userId: ObjectId
 })
 
