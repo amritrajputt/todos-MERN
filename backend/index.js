@@ -97,8 +97,8 @@ app.post("/signin", async (req, res) => {
             message: "Incorrect credential"
         })
     }
-    
-    
+
+
 })
 
 
@@ -146,17 +146,64 @@ app.get("/todo", auth, async (req, res) => {
         if (!userId) {
             return res.status(403).json({ message: "User is not registered in DB" });
         }
-        const todos = await todoModel.find({ userId: userId  });
-        return res.json({
+        const todos = await todoModel.find({ userId: userId });
+        return res.status(200).json({
             message: "Todos fetched successfully",
             todos
         });
-        
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
+
+app.delete('/deletetodo/:id', auth, async (req, res) => {
+    try {
+        const userId = req.userID
+        const todoId = req.params.id;
+        const todo = await todoModel.findOneAndDelete({ _id: todoId, userId })
+        if (!todo) {
+            return res.status(404).json({ message: "Todo not found or not authorized" });
+        }
+        res.json({ message: "Todo deleted" });
+    } catch (err) {
+
+        res.status(500).json({ message: "Server error" });
+
+    }
+})
+
+app.patch('/updatetodo/:id', auth, async (req, res) => {
+    try {
+        const userId = req.userID
+        const todoId = req.params.id;
+        const { title, status } = req.body
+        if (!title && !status) {
+            return res.status(400).json({ message: "Please provide something to update." });
+        }
+        const updateFields = {};
+        if (title) updateFields.title = title;
+        if (status) updateFields.status = status;
+
+        const todo = await todoModel.findOneAndUpdate(
+            { _id: todoId, userId },
+            updateFields,
+            { new: true }
+        );
+
+        if (!todo) {
+            return res.status(404).json({ message: "Todo not found or not authorized" });
+        }
+
+        res.json({ message: "Todo updated", todo });
+    } catch (err) {
+
+        res.status(500).json({ message: "Server error" });
+
+    }
+})
 
 app.listen('3000',
     console.log("server is running")
