@@ -132,16 +132,31 @@ app.post("/addtodo", auth, async (req, res) => {
     await todoModel.create({
         title: title,
         status: status,
-        user: userId
+        userId: userId
     })
 
     res.json({ message: "Todo added" });
 })
 
 
-app.get("/todo", (req, res) => {
+app.get("/todo", auth, async (req, res) => {
+    try {
+        const userId = req.userID;
 
-})
+        if (!userId) {
+            return res.status(403).json({ message: "User is not registered in DB" });
+        }
+        const todos = await todoModel.find({ userId: userId  });
+        return res.json({
+            message: "Todos fetched successfully",
+            todos
+        });
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 app.listen('3000',
     console.log("server is running")
