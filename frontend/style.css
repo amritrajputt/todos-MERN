@@ -1,36 +1,42 @@
-
+/* Global Styles */
 body {
   background-color: #181818;
   color: #f4f4f4;
   font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-
+/* Main Container */
 #main {
   max-width: 700px;
   margin: 48px auto 0 auto;
   padding: 32px 28px;
   background-color: #23272a;
   border-radius: 14px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
   text-align: center;
 }
 
-
+/* Heading */
 #main h2 {
   margin-bottom: 32px;
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 1px;
 }
- 
-span {
+
+/* Input + Button Row */
+.input-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
+  margin-bottom: 24px;
 }
+
+/* Text Input */
 input[type="text"] {
   width: 100%;
   max-width: 400px;
@@ -48,6 +54,24 @@ input[type="text"]:focus {
   border-color: #3b82f6;
 }
 
+input[type="password"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  background-color: #23272a;
+  color: #f4f4f4;
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="password"]:focus {
+  border-color: #3b82f6;
+}
+
+/* Button */
 button {
   padding: 12px 28px;
   background-color: #3b82f6;
@@ -58,9 +82,106 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  margin: 5px;
 }
 
 button:hover {
   background-color: #2563eb;
+}
+
+/* Todo List Container */
+#todos-list {
+  margin-top: 20px;
+}
+
+#todos-list button {
+  padding: 5px 10px;
+  margin: 4px;
+
+  align-items: flex-end;
+}
+
+#todos-list div {
+  background-color: #23272a;
+  color: #f4f4f4;
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  margin: 4px;
+}
+
+
+#signup-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#login-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#todo-section {
+  max-width: 500px;
+  margin: 48px auto;
+  padding: 32px;
+  background-color: #23272a;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+/* Auth Section Container */
+#auth-section {
+  max-width: 500px;
+  margin: 48px auto;
+  padding: 32px;
+  background-color: #23272a;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+/* Auth Headings */
+#auth-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Links (Switch Signup/Login) */
+#auth-section a {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#auth-section a:hover {
+  text-decoration: underline;
+}
+
+/* Add spacing between elements inside auth forms */
+#signup-div input,
+#login-div input {
+  margin-bottom: 16px;
+
+}
+
+#signup-div button,
+#login-div button {
+  margin-top: 12px;
+}
+
+/* Paragraph under buttons */
+#signup-div p,
+#login-div p {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: #d1d1d1;
+
 }

@@ -1,19 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERN Todo App</title>
     <link rel="stylesheet" href="style.css">
-    <title>Todos with MERN</title>
 </head>
+
 <body>
-    <div id="main">
-        <h2>todos</h2>
-        <span><input id="input-container" type="text"> <button id="add" onclick="addTodo()">add todo</button></span>
-        <div id="todos-list"></div>
+
+    <div id="auth-section">
+        <div id="signup-div">
+            <h2>Signup</h2>
+            <input id="signup-name" type="text" placeholder="name"><br>
+            <input id="signup-email" type="text" placeholder="email"><br>
+            <input id="signup-password" type="password" placeholder="password"><br>
+            <button onclick="signup()">Signup</button><br>
+
+            <p>Already registered?
+                <a href="#" onclick="showLogin()">Login</a>
+            </p>
+        </div>
+
+        <div id="login-div" style="display:none;">
+            <h2>Login</h2><br>
+            <input id="login-email" type="text" placeholder="email"><br>
+            <input id="login-password" type="password" placeholder="password"><br>
+            <button onclick="login()">Login</button><br>
+
+            <p>New user?
+                <a href="#" onclick="showSignup()">Signup</a>
+            </p>
+        </div>
 
     </div>
+
+    <div id="todo-section" style="display:none">
+        <h2>Your Todos</h2>
+        <div>
+            <input id="input-container" type="text" placeholder="Add todo..."><br>
+            <button id="add">Add Todo</button> <br>
+            <button onclick="logout()" style="background:red;">Logout</button>
+        </div>
+
+        <div id="todos-list"></div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+
 </html>

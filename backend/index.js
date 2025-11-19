@@ -6,6 +6,8 @@ const { z } = require('zod')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const { userModel, todoModel } = require('./db')
+const cors = require('cors');
+app.use(cors());
 
 mongoose.connect("mongodb+srv://amritrajput:tCB4Oq5LbwbkpCPb@cluster0.m6sem7b.mongodb.net/full-stack-todo")
 const JWT_SECRET = "amrit_shing__razput"
@@ -129,13 +131,13 @@ app.post("/addtodo", auth, async (req, res) => {
         return res.status(400).json({ message: "Missing fields" });
     }
 
-    await todoModel.create({
+    const todo = await todoModel.create({
         title: title,
         status: status,
         userId: userId
     })
 
-    res.json({ message: "Todo added" });
+    res.json({ message: "Todo added" , todo});
 })
 
 
