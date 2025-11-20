@@ -1,5 +1,5 @@
 
-const BASE_URL = "https://todos-mern.vercel.app/"
+const BASE_URL = "https://todos-mern.vercel.app"
 
 // ------------------------auth logic------------------------
 
