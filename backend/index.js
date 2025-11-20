@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('dotenv').config();
 app.use(express.json())
 const jwt = require('jsonwebtoken')
 const { z } = require('zod')
@@ -9,8 +10,11 @@ const { userModel, todoModel } = require('./db')
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect("mongodb+srv://amritrajput:tCB4Oq5LbwbkpCPb@cluster0.m6sem7b.mongodb.net/full-stack-todo")
-const JWT_SECRET = "amrit_shing__razput"
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("DB connected"))
+  .catch(err => console.log(err));
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.post("/signup", async (req, res) => {
 
@@ -207,6 +211,7 @@ app.patch('/updatetodo/:id', auth, async (req, res) => {
     }
 })
 
-app.listen('3000',
-    console.log("server is running")
-)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});
