@@ -16,6 +16,12 @@ mongoose.connect(process.env.MONGO_URI)
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+app.get('/',(req,res) => {
+    res.send({
+        activeStatus:true,
+        error:false
+    })
+})
 app.post("/signup", async (req, res) => {
 
 
