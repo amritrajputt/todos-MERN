@@ -90,7 +90,6 @@ button:hover {
   background-color: #2563eb;
 }
 
-/* Todo List Container */
 #todos-list {
   margin-top: 20px;
 }
@@ -184,4 +183,50 @@ button:hover {
   font-size: 0.95rem;
   color: #d1d1d1;
 
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  #main,
+  #todo-section,
+  #auth-section {
+    max-width: 90%;
+    padding: 24px;
+  }
+
+  .input-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  #todos-list div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  #main h2 {
+    font-size: 1.5rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+  }
+
+  button {
+    font-size: 0.92rem;
+    width: 100%;
+  }
+
+  #todos-list div {
+    padding: 10px;
+  }
 }
